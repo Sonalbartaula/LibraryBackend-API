@@ -4,6 +4,7 @@ using JWT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251106114315_Added-Transaction")]
+    partial class AddedTransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,9 +108,6 @@ namespace JWT.Migrations
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Fine")
-                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Isbn")
                         .IsRequired()

@@ -4,6 +4,7 @@ using JWT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251105133808_Added-Students")]
+    partial class AddedStudents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,11 +72,8 @@ namespace JWT.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("contact")
                         .IsRequired()
@@ -82,50 +82,6 @@ namespace JWT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("students");
-                });
-
-            modelBuilder.Entity("JWT.Model.Transaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BookName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Booktitle")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CheckoutDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Fine")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Isbn")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("IssueStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MemeberName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("ReturnDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Jwt.Model.Book", b =>
@@ -157,8 +113,10 @@ namespace JWT.Migrations
                     b.Property<int>("IssuedCopies")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Title")
                         .IsRequired()

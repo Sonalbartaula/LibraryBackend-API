@@ -56,8 +56,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+        ValidAudience = builder.Configuration["AppSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
             System.Text.Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)
             )
