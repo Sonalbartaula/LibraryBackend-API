@@ -1,101 +1,88 @@
-# JWT Authentication API
-
-This is a .NET Core API that provides JWT (JSON Web Token) based authentication functionality. It includes endpoints for user registration, login, and token refresh.
+# Library Management System Backend
 
 ## Installation
 
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/jwt-auth-api.git
+git clone https://github.com/your-username/LibraryBackend-API.git
 ```
-
 2. Navigate to the project directory:
 ```
-cd jwt-auth-api
+cd LibraryBackend-API
 ```
-
-3. Restore the NuGet packages:
+3. Install the required dependencies:
 ```
 dotnet restore
 ```
-
-4. Update the connection string in the `appsettings.json` file to match your database configuration.
-
-5. Apply the database migrations:
+4. Build the project:
 ```
-dotnet ef database update
+dotnet build
 ```
-
-6. Build and run the application:
+5. Run the application:
 ```
 dotnet run
 ```
 
-The API will be available at `https://localhost:5001/api`.
-
 ## Usage
 
-### Registration
-To register a new user, send a POST request to the `/api/auth/register` endpoint with the following JSON payload:
+The Library Management System provides the following features:
 
-```json
-{
-  "username": "your-username",
-  "password": "your-password"
-}
-```
+1. **Book Management**:
+   - Add new books
+   - Edit book details
+   - Delete books
+   - Search for books based on title, author, ISBN, and category
 
-### Login
-To log in, send a POST request to the `/api/auth/login` endpoint with the following JSON payload:
+2. **Student Management**:
+   - Add new students
+   - Edit student details
+   - Delete students
+   - Search for students based on name, ID, type, and status
 
-```json
-{
-  "username": "your-username",
-  "password": "your-password"
-}
-```
-
-The response will include an access token and a refresh token.
-
-### Refresh Token
-To refresh the access token, send a POST request to the `/api/auth/refresh-token` endpoint with the following JSON payload:
-
-```json
-{
-  "refreshToken": "your-refresh-token"
-}
-```
-
-### Authorized Endpoints
-To access the authorized endpoints, include the access token in the `Authorization` header of your requests:
-
-```
-Authorization: Bearer your-access-token
-```
-
-The API includes two authorized endpoints:
-- `/api/auth/auth-endpoint`: Accessible to all authenticated users.
-- `/api/auth/admin-endpoint`: Accessible only to users with the "Admin" role.
+3. **Transactions**:
+   - Check out books
+   - Return books
+   - View active loans
+   - View transaction history
 
 ## API
 
-The API includes the following endpoints:
+The application exposes the following API endpoints:
 
-| Endpoint | HTTP Method | Description |
-| --- | --- | --- |
-| `/api/auth/register` | POST | Register a new user. |
-| `/api/auth/login` | POST | Log in and receive an access token and a refresh token. |
-| `/api/auth/refresh-token` | POST | Refresh the access token using the refresh token. |
-| `/api/auth/auth-endpoint` | GET | Accessible to all authenticated users. |
-| `/api/auth/admin-endpoint` | GET | Accessible only to users with the "Admin" role. |
+### Authentication
+- `POST /api/auth/register`: Register a new user
+- `POST /api/auth/login`: Login and obtain access and refresh tokens
+- `POST /api/auth/refresh-token`: Refresh access token using a valid refresh token
+- `GET /api/auth/auth-endpoint`: Endpoint that requires authentication
+- `GET /api/auth/admin-endpoint`: Endpoint that requires admin authorization
+
+### Books
+- `GET /api/books`: Get all books
+- `POST /api/books/addbooks`: Add a new book (requires admin authorization)
+- `PUT /api/books/edit/{id}`: Update a book (requires admin authorization)
+- `DELETE /api/books/delete/{id}`: Delete a book (requires admin authorization)
+- `GET /api/books/search`: Search for books based on various criteria
+
+### Students
+- `GET /api/students/student`: Get all students
+- `POST /api/students/addstudent`: Add a new student (requires admin authorization)
+- `PUT /api/students/editstudent`: Update a student (requires admin authorization)
+- `DELETE /api/students/deletestudent/{id}`: Delete a student (requires admin authorization)
+- `GET /api/students/search`: Search for students based on various criteria
+
+### Transactions
+- `POST /api/transactions/checkout`: Check out a book (requires admin or staff authorization)
+- `GET /api/transactions/active`: Get all active loans
+- `PUT /api/transactions/return/{id}`: Return a book (requires admin or staff authorization)
+- `GET /api/transactions/history`: Get the transaction history
 
 ## Contributing
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Implement your changes.
-4. Test your changes.
-5. Submit a pull request.
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature`
+3. Make your changes and commit them: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Submit a pull request
 
 ## License
 
